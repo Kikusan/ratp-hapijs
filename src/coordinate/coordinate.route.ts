@@ -34,6 +34,8 @@ export default [
             },
             response: {
                 schema: Joi.object({
+                    total: Joi.number()
+                        .description('total of returned result'),
                     data: Joi.array().items(Joi.object({
                         name: Joi.string()
                             .description('your location research'),

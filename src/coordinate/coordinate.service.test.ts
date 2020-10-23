@@ -53,6 +53,7 @@ describe("coordinateService", () => {
         });
         it("should return array of coordinates", () => {
             const exprectedResult = {
+                total: 20,
                 data: [
                     {
                         name: "NEUILLY-PLAISANCE RER.",

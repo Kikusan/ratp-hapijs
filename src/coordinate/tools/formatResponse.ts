@@ -3,6 +3,7 @@ import { RecordModel } from '../model/record.model';
 import { ResponseModel } from '../model/response.model';
 export function formatResponse(data, params): ResponseModel {
     return {
+        total: data.nhits,
         data: formatDataRecord(data.records),
         _links: createLinkObject(data.nhits, params)
     }
