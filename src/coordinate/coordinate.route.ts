@@ -33,17 +33,27 @@ export default [
                 })
             },
             response: {
-                schema: Joi.array().items(Joi.object({
-                    name: Joi.string()
-                        .description('your location research'),
-                    coordinates: Joi.array()
-                        .items(Joi.number())
-                        .description('sort the result by name'),
-                    id: Joi.string()
-                        .description('page number'),
-                    description: Joi.string()
-                        .description('items per page'),
-                }))
+                schema: Joi.object({
+                    data: Joi.array().items(Joi.object({
+                        name: Joi.string()
+                            .description('your location research'),
+                        coordinates: Joi.array()
+                            .items(Joi.number())
+                            .description('sort the result by name'),
+                        id: Joi.string()
+                            .description('page number'),
+                        description: Joi.string()
+                            .description('items per page'),
+                    })),
+                    _links: Joi.object({
+                        current: Joi.string()
+                            .description('current url'),
+                        previous: Joi.string()
+                            .description('previous page url'),
+                        next: Joi.string()
+                            .description('next page url'),
+                    })
+                })
             }
         },
     }

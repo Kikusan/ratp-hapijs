@@ -13,7 +13,7 @@ describe("Coordinate Provider", () => {
             fetchMock.mockRestore();
         });
         describe("on success", () => {
-            describe("without params", () => {
+            describe("without query", () => {
                 beforeEach(async () => {
                     fetchMock = jest.fn().mockReturnValue({
                         json: jest.fn(() => ({ data: [{}, {}] })),
@@ -25,13 +25,8 @@ describe("Coordinate Provider", () => {
                     const coordinateProxy = makeCoordinateProvider({
                         fetch: fetchMock
                     });
-                    const params = {
-                        location: undefined,
-                        page: undefined,
-                        itemPerPage: undefined,
-                        sortByName: undefined,
-                    };
-                    result = await coordinateProxy.get(params);
+                    const query = '';
+                    result = await coordinateProxy.get(query);
                 });
                 it("should call fetchMock", () => {
                     expect(fetchMock).toHaveBeenCalled();
@@ -40,7 +35,7 @@ describe("Coordinate Provider", () => {
                     expect(result).toEqual({ data: [{}, {}] });
                 });
             });
-            describe("with params", () => {
+            describe("with query", () => {
                 beforeEach(async () => {
                     fetchMock = jest.fn().mockReturnValue({
                         json: jest.fn(() => ({ data: [{}, {}] })),
@@ -52,13 +47,8 @@ describe("Coordinate Provider", () => {
                     const coordinateProxy = makeCoordinateProvider({
                         fetch: fetchMock
                     });
-                    const params = {
-                        location: "val de fontenay",
-                        page: 3,
-                        itemPerPage: 20,
-                        sortByName: "desc",
-                    };
-                    result = await coordinateProxy.get(params);
+                    const query = '&q=val+de+fontenay&rows=20&start=40&sort=-stop_name';
+                    result = await coordinateProxy.get(query);
                 });
                 it("should call fetchMock", () => {
                     expect(fetchMock).toHaveBeenCalledWith(

@@ -39,20 +39,34 @@ describe("coordinateService", () => {
                 get: jest.fn(() => Promise.resolve(dataSample)),
             };
             coordinateService = makecoordinateService({ coordinateProvider });
-            result = await coordinateService.get("neuilly-plaisance");
+            const params = {
+                location: 'neuilly-plaisance',
+                page: 2,
+                itemPerPage: 5,
+                sortByName: 'desc'
+            }
+            result = await coordinateService.get(params);
         });
         it("should call coordinateProvider.get() with the correct params", () => {
-            expect(coordinateProvider.get).toHaveBeenCalledWith("neuilly-plaisance");
+            const expectedQuery = '&q=neuilly-plaisance&rows=5&start=5&sort=-stop_name'
+            expect(coordinateProvider.get).toHaveBeenCalledWith(expectedQuery);
         });
         it("should return array of coordinates", () => {
-            const exprectedResult = [
-                {
-                    name: "NEUILLY-PLAISANCE RER.",
-                    coordinates: [48.85296447651706, 2.5147940192726432],
-                    id: "3682834",
-                    description: "22-24 BOULEVARD GALLIENI - 93049",
-                },
-            ];
+            const exprectedResult = {
+                data: [
+                    {
+                        name: "NEUILLY-PLAISANCE RER.",
+                        coordinates: [48.85296447651706, 2.5147940192726432],
+                        id: "3682834",
+                        description: "22-24 BOULEVARD GALLIENI - 93049",
+                    }],
+                _links: {
+                    current: "undefined/coordinate?location=neuilly-plaisance&page=2&item-per-page=5&sort-by-name=desc",
+                    next: "undefined/coordinate?location=neuilly-plaisance&page=3&item-per-page=5&sort-by-name=desc",
+                    previous: "undefined/coordinate?location=neuilly-plaisance&page=1&item-per-page=5&sort-by-name=desc",
+                }
+
+            };
             expect(result).toEqual(exprectedResult);
         });
     });
