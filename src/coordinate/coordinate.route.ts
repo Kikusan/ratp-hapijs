@@ -48,6 +48,10 @@ export default [
                             .description('items per page'),
                     })),
                     _links: Joi.object({
+                        first: Joi.string()
+                            .description('first page url'),
+                        last: Joi.string()
+                            .description('last page url'),
                         current: Joi.string()
                             .description('current url'),
                         previous: Joi.string()

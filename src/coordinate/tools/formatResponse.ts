@@ -26,6 +26,8 @@ function createLinkObject(hits: number, params: ParamModel) {
         current: generateLink(hits, params),
         previous: generateLink(hits, params, 'previous'),
         next: generateLink(hits, params, 'next'),
+        first: generateLink(hits, params, 'first'),
+        last: generateLink(hits, params, 'last'),
     }
 
 };
@@ -34,7 +36,14 @@ function generateLink(hits, { location, page, itemPerPage, sortByName }, option?
     const locationParam = location ? `location=${location}` : ''
     const sortByNameParam = sortByName ? `&sort-by-name=${sortByName}` : '';
     const itemPerPageParam = itemPerPage ? `&item-per-page=${itemPerPage}` : '';
+    const lastPage = Math.ceil(hits / itemPerPage);
     switch (option) {
+        case 'first':
+            page = 1;
+            break;
+        case 'last':
+            page = lastPage;
+            break;
         case 'previous':
             if (!page || page < 2) {
                 return
@@ -44,7 +53,7 @@ function generateLink(hits, { location, page, itemPerPage, sortByName }, option?
         case 'next':
             if (!page) {
                 page = 2;
-            } else if (page && hits > page * (itemPerPage || 10)) {
+            } else if (page < lastPage) {
                 page = page + 1;
             } else {
                 return
