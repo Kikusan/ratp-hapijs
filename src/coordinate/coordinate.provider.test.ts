@@ -7,7 +7,6 @@ describe("Coordinate Provider", () => {
     describe("get", () => {
         let result;
         let fetchMock;
-        let querystringMock;
 
         afterEach(() => {
             fetchMock.mockRestore();
@@ -19,9 +18,6 @@ describe("Coordinate Provider", () => {
                         json: jest.fn(() => ({ data: [{}, {}] })),
                         status: 200,
                     });
-                    querystringMock = {
-                        stringify: jest.fn(() => ""),
-                    };
                     const coordinateProxy = makeCoordinateProvider({
                         fetch: fetchMock
                     });
@@ -41,9 +37,6 @@ describe("Coordinate Provider", () => {
                         json: jest.fn(() => ({ data: [{}, {}] })),
                         status: 200,
                     });
-                    querystringMock = {
-                        stringify: jest.fn(() => ""),
-                    };
                     const coordinateProxy = makeCoordinateProvider({
                         fetch: fetchMock
                     });
@@ -63,9 +56,6 @@ describe("Coordinate Provider", () => {
                     json: jest.fn(() => ({})),
                     status: 500,
                 });
-                querystringMock = {
-                    stringify: jest.fn(() => ""),
-                };
                 coordinateProxy = makeCoordinateProvider({
                     fetch: fetchMock
                 });
