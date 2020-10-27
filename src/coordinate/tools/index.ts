@@ -1,8 +1,4 @@
 import { createQuery } from './createQuery';
-import { formatResponse } from './formatResponse'
+import { formatResponse } from './formatResponse';
 
-
-export {
-    formatResponse,
-    createQuery
-}
+export { formatResponse, createQuery };

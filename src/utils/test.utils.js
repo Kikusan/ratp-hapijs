@@ -1,4 +1,4 @@
-const PassThrough = require("stream").PassThrough;
+const PassThrough = require('stream').PassThrough;
 
 class FakeResponse extends PassThrough {
   constructor(options) {
